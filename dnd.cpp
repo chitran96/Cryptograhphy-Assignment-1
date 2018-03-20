@@ -62,11 +62,14 @@ class DnDFile : public wxFileDropTarget
 public:
 	DnDFile(wxListBox *pOwner = NULL) { m_pOwner = pOwner;}
 
+	DnDFile(wxListBox *pOwner = NULL, wxTextCtrl *pOut = NULL) { m_pOwner = pOwner; m_pOut = pOut; }
+
     virtual bool OnDropFiles(wxCoord x, wxCoord y,
                              const wxArrayString& filenames);
 
 private:
     wxListBox *m_pOwner;
+	wxTextCtrl *m_pOut;
 };
 
 // ----------------------------------------------------------------------------
@@ -259,6 +262,8 @@ private:
     wxListBox  *m_ctrlFile,
                *m_ctrlText;
     wxGenericDirCtrl *m_ctrlDir;
+
+	wxTextCtrl *m_ctrlOutput;
 
 #if wxUSE_LOG
     wxTextCtrl *m_ctrlLog;
@@ -1012,6 +1017,11 @@ DnDFrame::DnDFrame()
                                 wxLB_HSCROLL | wxLB_ALWAYS_SB );
     m_ctrlDir   = new wxGenericDirCtrl(this);
 
+	m_ctrlOutput = new wxTextCtrl(this, wxID_ANY, wxT("Output here"),
+								wxDefaultPosition, wxDefaultSize,
+								wxTE_MULTILINE | wxTE_READONLY |
+								wxSUNKEN_BORDER);
+
 #if wxUSE_LOG
     m_ctrlLog   = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
                                  wxDefaultPosition, wxDefaultSize,
@@ -1025,7 +1035,7 @@ DnDFrame::DnDFrame()
 
 #if wxUSE_DRAG_AND_DROP
     // associate drop targets with the controls
-    m_ctrlFile->SetDropTarget(new DnDFile(m_ctrlFile));
+    m_ctrlFile->SetDropTarget(new DnDFile(m_ctrlFile, m_ctrlOutput));
     m_ctrlText->SetDropTarget(new DnDText(m_ctrlText));
 
 #if wxUSE_DRAG_AND_DROP
@@ -1060,6 +1070,10 @@ DnDFrame::DnDFrame()
 
     wxBoxSizer *sizer = new wxBoxSizer( wxVERTICAL );
     sizer->Add(sizer_top, 1, wxEXPAND );
+
+	sizer->Add(m_ctrlOutput, 2, wxEXPAND);
+	sizer->SetItemMinSize(m_ctrlOutput, 450, 200);
+
 #if wxUSE_LOG
     sizer->Add(m_ctrlLog, 2, wxEXPAND);
     sizer->SetItemMinSize(m_ctrlLog, 450, 200);
@@ -1236,7 +1250,7 @@ void DnDFrame::OnSaveAs(wxCommandEvent& WXUNUSED(event))
 	wxFile* file = output_stream.GetFile();
 	if (file->IsOpened())
 	{
-		file->Write("AAA", 4);
+		file->Write(this->m_ctrlOutput->GetValue(), this->m_ctrlOutput->GetValue().length());
 		file->Close();
 	}
 	
@@ -1645,6 +1659,14 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 		}       
     }
 
+	if (m_pOut != NULL)
+	{
+		m_pOut->ChangeValue(str);
+		for (size_t n = 0; n < nFiles; n++)
+		{
+			m_pOut->ChangeValue(filenames[n]);
+		}
+	}
     return true;
 }
 
