@@ -9,6 +9,10 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "wx/wxprec.h"
+#include <wx/wfstream.h>
+#include <wx/textfile.h>
+
+
 
 #ifdef __BORLANDC__
 #pragma hdrstop
@@ -56,22 +60,13 @@ private:
 class DnDFile : public wxFileDropTarget
 {
 public:
-    DnDFile(wxListBox *pOwner = NULL) { m_pOwner = pOwner; SetDataObject(m_data); }
+	DnDFile(wxListBox *pOwner = NULL) { m_pOwner = pOwner;}
 
     virtual bool OnDropFiles(wxCoord x, wxCoord y,
                              const wxArrayString& filenames);
-	virtual wxDragResult OnData(wxCoord x, wxCoord y, wxDragResult def)
-	{
-		if (!GetData())
-			return wxDragNone;
-		wxString str;
-		str.Printf(wxT("size %d files dropped"), m_data->GetDataSize("char *"));
-		return def;
-	}
 
 private:
     wxListBox *m_pOwner;
-	wxURLDataObject *m_data;
 };
 
 // ----------------------------------------------------------------------------
@@ -220,6 +215,8 @@ public:
     void OnDragMoveAllow(wxCommandEvent& event);
     void OnNewFrame(wxCommandEvent& event);
     void OnHelp (wxCommandEvent& event);
+
+	void OnSaveAs(wxCommandEvent& event);
 #if wxUSE_LOG
     void OnLogClear(wxCommandEvent& event);
 #endif // wxUSE_LOG
@@ -827,6 +824,9 @@ enum
     Menu_CopyFiles,
     Menu_CopyURL,
     Menu_UsePrimary,
+
+	Menu_SaveAs,
+
     Menu_Shape_New = 500,
     Menu_Shape_Edit,
     Menu_Shape_Clear,
@@ -848,6 +848,7 @@ wxBEGIN_EVENT_TABLE(DnDFrame, wxFrame)
 #endif // wxUSE_LOG
     EVT_MENU(Menu_Copy,       DnDFrame::OnCopy)
     EVT_MENU(Menu_Paste,      DnDFrame::OnPaste)
+	EVT_MENU(Menu_SaveAs,	  DnDFrame::OnSaveAs)
     EVT_MENU(Menu_CopyBitmap, DnDFrame::OnCopyBitmap)
     EVT_MENU(Menu_PasteBitmap,DnDFrame::OnPasteBitmap)
 #if wxUSE_METAFILE
@@ -976,6 +977,7 @@ DnDFrame::DnDFrame()
     wxMenu *clip_menu = new wxMenu;
     clip_menu->Append(Menu_Copy, wxT("&Copy text\tCtrl-C"));
     clip_menu->Append(Menu_Paste, wxT("&Paste text\tCtrl-V"));
+	clip_menu->Append(Menu_SaveAs, wxT("&Save as\tCtrl-S"));
     clip_menu->AppendSeparator();
     clip_menu->Append(Menu_CopyBitmap, wxT("Copy &bitmap\tCtrl-Shift-C"));
     clip_menu->Append(Menu_PasteBitmap, wxT("Paste b&itmap\tCtrl-Shift-V"));
@@ -1197,6 +1199,47 @@ void DnDFrame::OnHelp(wxCommandEvent& /* event */)
                            wxT("wxDnD Help"));
 
     dialog.ShowModal();
+}
+
+void DnDFrame::OnSaveAs(wxCommandEvent& WXUNUSED(event))
+{
+	wxFileDialog saveFileDialog(this, _("Save file"), "", "output", "Text files (*.txt)|*.txt", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+	if (saveFileDialog.ShowModal() == wxID_CANCEL)
+		return;     // the user changed idea...
+
+					// save the current contents in the file;
+					// this can be done with e.g. wxWidgets output streams:
+	wxFileOutputStream output_stream(saveFileDialog.GetPath());
+	if (!output_stream.IsOk())
+	{
+		wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
+		return;
+	}
+
+	/*output_stream.Close();
+
+	wxTextFile file(saveFileDialog.GetPath());
+	file.Create(saveFileDialog.GetPath());
+	file.Open(saveFileDialog.GetPath());
+
+	wxString str;
+
+	for (int i = 0; i < 5; i++)
+	{
+		str.Printf(wxT("%d files dropped"), 2);
+
+		file.AddLine(str);
+	}
+	file.Write();
+	file.Close();*/
+
+	wxFile* file = output_stream.GetFile();
+	if (file->IsOpened())
+	{
+		file->Write("AAA", 4);
+		file->Close();
+	}
+	
 }
 
 #if wxUSE_LOG
@@ -1596,8 +1639,10 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
     if (m_pOwner != NULL)
     {
         m_pOwner->Append(str);
-        for ( size_t n = 0; n < nFiles; n++ )
-            m_pOwner->Append(filenames[n]);
+		for (size_t n = 0; n < nFiles; n++)
+		{
+			m_pOwner->Append(filenames[n]);
+		}       
     }
 
     return true;
