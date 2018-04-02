@@ -1,0 +1,4 @@
+﻿  dlltest.cpp
+     Creating library Win32\DLL_Output\Release\dlltest.lib and object Win32\DLL_Output\Release\dlltest.exp
+  dlltest.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Release\dlltest.exe
+  dlltest.vcxproj -> Win32\DLL_Output\Release\dlltest.pdb (Full PDB)

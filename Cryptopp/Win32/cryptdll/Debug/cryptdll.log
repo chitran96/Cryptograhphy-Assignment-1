@@ -1,0 +1,69 @@
+﻿  pch.cpp
+  dll.cpp
+  iterhash.cpp
+  Generating Code...
+  algebra.cpp
+  algparam.cpp
+  asn.cpp
+  authenc.cpp
+  basecode.cpp
+  cbcmac.cpp
+  ccm.cpp
+  channels.cpp
+  cmac.cpp
+  cpu.cpp
+  cryptlib.cpp
+  des.cpp
+  dessp.cpp
+  dh.cpp
+  dsa.cpp
+  ec2n.cpp
+  eccrypto.cpp
+  ecp.cpp
+  emsa2.cpp
+  eprecomp.cpp
+  Generating Code...
+  Compiling...
+  files.cpp
+  filters.cpp
+  fips140.cpp
+  fipstest.cpp
+  gcm.cpp
+  gcm-simd.cpp
+  gf2n.cpp
+  gfpcrypt.cpp
+  hex.cpp
+  hmac.cpp
+  hrtimer.cpp
+  integer.cpp
+  misc.cpp
+  modes.cpp
+  mqueue.cpp
+  nbtheory.cpp
+  oaep.cpp
+  osrng.cpp
+  pkcspad.cpp
+  pssr.cpp
+  Generating Code...
+  Compiling...
+  pubkey.cpp
+  queue.cpp
+  randpool.cpp
+  rdtables.cpp
+  rijndael.cpp
+  rijndael-simd.cpp
+  rng.cpp
+  rsa.cpp
+  rw.cpp
+  sha.cpp
+  sha-simd.cpp
+  simple.cpp
+  skipjack.cpp
+  sse-simd.cpp
+  strciphr.cpp
+  trdlocal.cpp
+  Generating Code...
+     Creating library D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Debug\\cryptopp.lib and object D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Debug\\cryptopp.exp
+  cryptdll.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Debug\cryptopp.dll
+  cryptdll.vcxproj -> Win32\DLL_Output\Debug\\cryptopp.pdb (Full PDB)
+  Placing MAC B7F789DEE71A4A650F25D561B9E160265C05F3BB in D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Debug\cryptopp.dll at file offset 3733720 (0x38f8d8).

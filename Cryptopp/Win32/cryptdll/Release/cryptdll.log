@@ -1,0 +1,148 @@
+﻿  Microsoft (R) Build Engine version 14.0.25420.1
+  Copyright (C) Microsoft Corporation. All rights reserved.
+  
+  Build started 4/2/2018 8:07:27 PM.
+  Project "D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\cryptlib.vcxproj" on node 1 (Build target(s)).
+  InitializeBuildStatus:
+    Creating "Win32\cryptlib\Debug\cryptlib.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  CustomBuild:
+    All outputs are up-to-date.
+  ClCompile:
+    All outputs are up-to-date.
+    All outputs are up-to-date.
+    All outputs are up-to-date.
+  Lib:
+    All outputs are up-to-date.
+    cryptlib.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\Output\Debug\cryptlib.lib
+  FinalizeBuildStatus:
+    Deleting file "Win32\cryptlib\Debug\cryptlib.tlog\unsuccessfulbuild".
+    Touching "Win32\cryptlib\Debug\cryptlib.tlog\cryptlib.lastbuildstate".
+  Done Building Project "D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\cryptlib.vcxproj" (Build target(s)).
+  
+  Build succeeded.
+      0 Warning(s)
+      0 Error(s)
+  
+  Time Elapsed 00:00:00.61
+  Microsoft (R) Build Engine version 14.0.25420.1
+  Copyright (C) Microsoft Corporation. All rights reserved.
+  
+  Build started 4/2/2018 8:07:27 PM.
+  Project "D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\cryptest.vcxproj" on node 1 (Build target(s)).
+  InitializeBuildStatus:
+    Creating "Win32\cryptest\Debug\cryptest.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  ClCompile:
+    D:\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W4 /WX- /Od /Oi /Oy- /Gm- /EHsc /RTC1 /MTd /GS /arch:SSE2 /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Win32\cryptest\Debug\\" /Fd"Win32\cryptest\Debug\vc140.pdb" /Gd /TP /wd4231 /wd4251 /wd4275 /wd4355 /wd4505 /analyze- /errorReport:none adhoc.cpp bench1.cpp bench2.cpp datatest.cpp dlltest.cpp fipsalgt.cpp regtest1.cpp regtest2.cpp regtest3.cpp test.cpp validat0.cpp validat1.cpp validat2.cpp validat3.cpp validat4.cpp
+    adhoc.cpp
+    bench1.cpp
+    bench2.cpp
+    datatest.cpp
+    dlltest.cpp
+    fipsalgt.cpp
+    regtest1.cpp
+    regtest2.cpp
+    regtest3.cpp
+    test.cpp
+    validat0.cpp
+    validat1.cpp
+    validat2.cpp
+    validat3.cpp
+    validat4.cpp
+    Generating Code...
+  Link:
+    D:\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"Win32\Output\Debug\\cryptest.exe" /NOLOGO /LIBPATH:Win32\Output\Debug cryptlib.lib Ws2_32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"Win32\Output\Debug\\cryptlib.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Win32\Output\Debug\cryptest.lib" /MACHINE:X86 /SAFESEH Win32\cryptest\Debug\adhoc.obj
+    Win32\cryptest\Debug\bench1.obj
+    Win32\cryptest\Debug\bench2.obj
+    Win32\cryptest\Debug\datatest.obj
+    Win32\cryptest\Debug\dlltest.obj
+    Win32\cryptest\Debug\fipsalgt.obj
+    Win32\cryptest\Debug\regtest1.obj
+    Win32\cryptest\Debug\regtest2.obj
+    Win32\cryptest\Debug\regtest3.obj
+    Win32\cryptest\Debug\test.obj
+    Win32\cryptest\Debug\validat0.obj
+    Win32\cryptest\Debug\validat1.obj
+    Win32\cryptest\Debug\validat2.obj
+    Win32\cryptest\Debug\validat3.obj
+    Win32\cryptest\Debug\validat4.obj
+    cryptest.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\Output\Debug\cryptest.exe
+    cryptest.vcxproj -> Win32\Output\Debug\\cryptlib.pdb (Full PDB)
+  FinalizeBuildStatus:
+    Deleting file "Win32\cryptest\Debug\cryptest.tlog\unsuccessfulbuild".
+    Touching "Win32\cryptest\Debug\cryptest.tlog\cryptest.lastbuildstate".
+  Done Building Project "D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\cryptest.vcxproj" (Build target(s)).
+  
+  Build succeeded.
+      0 Warning(s)
+      0 Error(s)
+  
+  Time Elapsed 00:00:35.05
+  pch.cpp
+  dll.cpp
+  iterhash.cpp
+  Generating Code...
+  algebra.cpp
+  algparam.cpp
+  asn.cpp
+  authenc.cpp
+  basecode.cpp
+  cbcmac.cpp
+  ccm.cpp
+  channels.cpp
+  cmac.cpp
+  cpu.cpp
+  cryptlib.cpp
+  des.cpp
+  dessp.cpp
+  dh.cpp
+  dsa.cpp
+  ec2n.cpp
+  eccrypto.cpp
+  ecp.cpp
+  emsa2.cpp
+  eprecomp.cpp
+  Generating Code...
+  Compiling...
+  files.cpp
+  filters.cpp
+  fips140.cpp
+  fipstest.cpp
+  gcm.cpp
+  gcm-simd.cpp
+  gf2n.cpp
+  gfpcrypt.cpp
+  hex.cpp
+  hmac.cpp
+  hrtimer.cpp
+  integer.cpp
+  misc.cpp
+  modes.cpp
+  mqueue.cpp
+  nbtheory.cpp
+  oaep.cpp
+  osrng.cpp
+  pkcspad.cpp
+  pssr.cpp
+  Generating Code...
+  Compiling...
+  pubkey.cpp
+  queue.cpp
+  randpool.cpp
+  rdtables.cpp
+  rijndael.cpp
+  rijndael-simd.cpp
+  rng.cpp
+  rsa.cpp
+  rw.cpp
+  sha.cpp
+  sha-simd.cpp
+  simple.cpp
+  skipjack.cpp
+  sse-simd.cpp
+  strciphr.cpp
+  trdlocal.cpp
+  Generating Code...
+     Creating library D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Release\\cryptopp.lib and object D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Release\\cryptopp.exp
+  cryptdll.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Release\cryptopp.dll
+  cryptdll.vcxproj -> Win32\DLL_Output\Release\\cryptopp.pdb (Full PDB)
+  Placing MAC A0614636E51E3D5D7EE922EC7CCC0B45729CFBE8 in D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Release\cryptopp.dll at file offset 1016472 (0xf8298).

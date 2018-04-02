@@ -1,0 +1,25 @@
+﻿  *************************************************************************
+  This configuration requires cryptopp.dll. You can build it yourself using
+  the cryptdll project, or obtain a pre-built, FIPS 140-2 validated DLL. If
+  you build it yourself the resulting DLL will not be considered FIPS
+  validated unless it undergoes the FIPS validation process.
+  *************************************************************************
+  adhoc.cpp
+  bench1.cpp
+  bench2.cpp
+  datatest.cpp
+  dlltest.cpp
+  fipsalgt.cpp
+  regtest1.cpp
+  regtest2.cpp
+  regtest3.cpp
+  test.cpp
+  validat0.cpp
+  validat1.cpp
+  validat2.cpp
+  validat3.cpp
+  validat4.cpp
+  Generating Code...
+     Creating library Win32\DLL_Output\Debug\cryptest.lib and object Win32\DLL_Output\Debug\cryptest.exp
+  cryptest.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\DLL_Output\Debug\cryptest.exe
+  cryptest.vcxproj -> Win32\DLL_Output\Debug\\cryptlib.pdb (Full PDB)

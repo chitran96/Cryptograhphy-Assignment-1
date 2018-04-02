@@ -1,0 +1,18 @@
+﻿  adhoc.cpp
+  bench1.cpp
+  bench2.cpp
+  datatest.cpp
+  dlltest.cpp
+  fipsalgt.cpp
+  regtest1.cpp
+  regtest2.cpp
+  regtest3.cpp
+  test.cpp
+  validat0.cpp
+  validat1.cpp
+  validat2.cpp
+  validat3.cpp
+  validat4.cpp
+  Generating Code...
+  cryptest.vcxproj -> D:\Cryptography & Network Security\wxWidgets-3.0.4\samples\dnd\Cryptopp\Win32\Output\Release\cryptest.exe
+  cryptest.vcxproj -> Win32\Output\Release\\cryptlib.pdb (Full PDB)

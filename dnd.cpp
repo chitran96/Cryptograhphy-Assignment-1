@@ -1,18 +1,50 @@
-/////////////////////////////////////////////////////////////////////////////
-// Name:        dnd.cpp
-// Purpose:     Drag and drop sample
-// Author:      Vadim Zeitlin
-// Modified by:
-// Created:     04/01/98
-// Copyright:
-// Licence:     wxWindows licence
-/////////////////////////////////////////////////////////////////////////////
+#define ENCRYPT 0
+#define DECRYPT 1
 
 #include "wx/wxprec.h"
 #include <wx/wfstream.h>
 #include <wx/textfile.h>
 
+#include <string>
+#include <cstdlib>
+#include <iostream>
+using namespace std;
 
+#include "Cryptopp/cryptlib.h"
+using CryptoPP::Exception;
+
+#include "Cryptopp/filters.h"
+using CryptoPP::StringSink;
+using CryptoPP::StringSource;
+using CryptoPP::StreamTransformationFilter;
+
+#include "Cryptopp/files.h"
+
+#include "Cryptopp/modes.h"
+using CryptoPP::CBC_Mode;
+using CryptoPP::CFB_Mode;
+
+#include "Cryptopp/queue.h"
+
+#include "Cryptopp/hex.h"
+using CryptoPP::HexEncoder;
+using CryptoPP::HexDecoder;
+
+#include "Cryptopp/aes.h"
+using CryptoPP::AES;
+
+#include "Cryptopp/osrng.h"
+using CryptoPP::AutoSeededRandomPool;
+
+#include "Cryptopp/base64.h"
+
+#include "Cryptopp/secblock.h"
+using CryptoPP::SecBlock;
+
+#include "Cryptopp/ccm.h"
+using CryptoPP::CBC_Mode;
+
+#include "assert.h"
 
 #ifdef __BORLANDC__
 #pragma hdrstop
@@ -66,6 +98,8 @@ public:
 
     virtual bool OnDropFiles(wxCoord x, wxCoord y,
                              const wxArrayString& filenames);
+
+	int mode;
 
 private:
     wxListBox *m_pOwner;
@@ -208,6 +242,8 @@ class DnDFrame : public wxFrame
 public:
     DnDFrame();
     virtual ~DnDFrame();
+
+	void OnGetMode(wxCommandEvent& event);
 
     void OnPaint(wxPaintEvent& event);
     void OnSize(wxSizeEvent& event);
@@ -1215,6 +1251,8 @@ void DnDFrame::OnHelp(wxCommandEvent& /* event */)
     dialog.ShowModal();
 }
 
+/* Find output stream 
+ * Input needed to be found */
 void DnDFrame::OnSaveAs(wxCommandEvent& WXUNUSED(event))
 {
 	wxFileDialog saveFileDialog(this, _("Save file"), "", "output", "Text files (*.txt)|*.txt", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
@@ -1644,30 +1682,118 @@ bool DnDText::OnDropText(wxCoord, wxCoord, const wxString& text)
     return true;
 }
 
+void DnDFrame::OnGetMode(wxCommandEvent& event) {
+	
+}
+
+/* Files dropped, processing them*/
 bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 {
-    size_t nFiles = filenames.GetCount();
-    wxString str;
-    str.Printf( wxT("%d files dropped"), (int)nFiles);
+	size_t nFiles = filenames.GetCount();
+	wxString str;
+	str.Printf(wxT("%d files dropped"), (int)nFiles);
 
-    if (m_pOwner != NULL)
-    {
-        m_pOwner->Append(str);
+	if (m_pOwner != NULL)
+	{
+		m_pOwner->Append(str);
 		for (size_t n = 0; n < nFiles; n++)
 		{
 			m_pOwner->Append(filenames[n]);
-		}       
-    }
-
-	if (m_pOut != NULL)
-	{
-		m_pOut->ChangeValue(str);
-		for (size_t n = 0; n < nFiles; n++)
-		{
-			m_pOut->ChangeValue(filenames[n]);
 		}
 	}
-    return true;
+
+	/* Input for this should be the file directory */
+	wxTextFile file(wxT("D:\\TestAss\\test_ass1.txt"));
+	wxString readText;
+
+	/* Read the text from file */
+	file.Open();
+	for (size_t n = 0; n < file.GetLineCount(); n++) {
+		readText << file.GetLine(n) << _T("\r\n");
+	}
+
+	/* Close the file */
+	file.Close();
+
+	/* Convert wxString to std::string */
+	string plaintext = std::string(readText.ToStdString());
+	string cipher, encoded, recovered;
+
+
+	AutoSeededRandomPool prng;
+	/* Encrypt the string */
+
+	byte key[AES::DEFAULT_KEYLENGTH];
+	/* Generate a random key */
+	prng.GenerateBlock(key, sizeof(key));
+
+	byte iv[AES::BLOCKSIZE];
+	/* Generate a random iv */
+	prng.GenerateBlock(iv, sizeof(iv));
+
+	/* Pretty print key */
+	encoded.clear();
+	StringSource(key, sizeof(key), true,
+		new HexEncoder(
+			new StringSink(encoded)
+		) // HexEncoder
+	); // StringSource
+	
+	/* Pretty print iv */
+	encoded.clear();
+	StringSource(iv, sizeof(iv), true,
+		new HexEncoder(
+			new StringSink(encoded)
+		) // HexEncoder
+	); // StringSource
+
+	if (mode == ENCRYPT) {
+		try {
+			CBC_Mode< AES >::Encryption e;
+			e.SetKeyWithIV(key, sizeof(key), iv);
+			StringSource s(plaintext, true,
+				new StreamTransformationFilter(e,
+					new StringSink(cipher)
+				) // StreamTransformationFilter
+			); // StringSource
+		}
+		catch (const CryptoPP::Exception& e) {
+			cerr << e.what() << endl;
+		}
+	}
+	else if (mode == DECRYPT) {
+		try {
+			CBC_Mode< AES >::Decryption d;
+			d.SetKeyWithIV(key, sizeof(key), iv);
+			StringSource s(cipher, true,
+				new StreamTransformationFilter(d,
+					new StringSink(recovered)
+				) // StreamTransformationFilter
+			); // StringSource
+		}
+		catch (const CryptoPP::Exception& e) {
+			cerr << e.what() << endl;
+		}
+	}
+
+	/* print the encoded */
+	if (m_pOut != NULL)
+	{
+		if (mode == ENCRYPT) {
+			encoded.clear();
+			StringSource(cipher, true,
+				new HexEncoder(
+					new StringSink(encoded)
+				) // HexEncoder
+			); // StringSource
+			m_pOut->ChangeValue(cipher);
+		}
+		else if (mode == DECRYPT) {
+			m_pOut->ChangeValue(recovered);
+		}
+		
+	}
+	return true;
 }
 
 // ----------------------------------------------------------------------------
