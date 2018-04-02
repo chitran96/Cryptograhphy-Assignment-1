@@ -1703,7 +1703,7 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 	}
 
 	/* Input for this should be the file directory */
-	wxTextFile file(wxT("D:\\TestAss\\test_ass1.txt"));
+	wxTextFile file(filenames[0]);
 	wxString readText;
 
 	/* Read the text from file */
@@ -1751,6 +1751,7 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 		try {
 			CBC_Mode< AES >::Encryption e;
 			e.SetKeyWithIV(key, sizeof(key), iv);
+			/* Make it look clearer */
 			StringSource s(plaintext, true,
 				new StreamTransformationFilter(e,
 					new StringSink(cipher)
@@ -1765,6 +1766,7 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 		try {
 			CBC_Mode< AES >::Decryption d;
 			d.SetKeyWithIV(key, sizeof(key), iv);
+			/* Make it look clearer */
 			StringSource s(cipher, true,
 				new StreamTransformationFilter(d,
 					new StringSink(recovered)
@@ -1780,6 +1782,7 @@ bool DnDFile::OnDropFiles(wxCoord, wxCoord, const wxArrayString& filenames)
 	if (m_pOut != NULL)
 	{
 		if (mode == ENCRYPT) {
+			/* Make it look clearer */
 			encoded.clear();
 			StringSource(cipher, true,
 				new HexEncoder(

@@ -1,4 +1,5 @@
 ﻿  dnd.cpp
+dnd.cpp(1685): warning C4100: 'event': unreferenced formal parameter
 dnd.obj : error LNK2019: unresolved external symbol "public: __thiscall CryptoPP::Algorithm::Algorithm(bool)" (??0Algorithm@CryptoPP@@QAE@_N@Z) referenced in function "public: __thiscall CryptoPP::BlockTransformation::BlockTransformation(void)" (??0BlockTransformation@CryptoPP@@QAE@XZ)
 dnd.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall CryptoPP::SimpleKeyingInterface::SetKey(unsigned char const *,unsigned int,class CryptoPP::NameValuePairs const &)" (?SetKey@SimpleKeyingInterface@CryptoPP@@UAEXPBEIABVNameValuePairs@2@@Z)
 dnd.obj : error LNK2019: unresolved external symbol "public: void __thiscall CryptoPP::SimpleKeyingInterface::SetKeyWithIV(unsigned char const *,unsigned int,unsigned char const *,unsigned int)" (?SetKeyWithIV@SimpleKeyingInterface@CryptoPP@@QAEXPBEI0I@Z) referenced in function "public: void __thiscall CryptoPP::SimpleKeyingInterface::SetKeyWithIV(unsigned char const *,unsigned int,unsigned char const *)" (?SetKeyWithIV@SimpleKeyingInterface@CryptoPP@@QAEXPBEI0@Z)
